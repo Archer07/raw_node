@@ -1,6 +1,8 @@
 var http = require('http'),
       fs = require('fs');
 
+// helper function to abstract the logic of serving static files from the logic of the server
+
 function serveStatic(res, path, contentType, responseCode) {
 	if (!responseCode) responseCode = 200;
 	fs.readFile(__dirname + path, function(err, data){
@@ -8,7 +10,7 @@ function serveStatic(res, path, contentType, responseCode) {
 			res.writeHead(500, {'Content-Type': 'text/plain'});
 			res.end('500 - Internal Error');
 		} else {
-			res.writeHead(responseCode, {'Content-Type':contentType)};
+			res.writeHead(responseCode, {'Content-Type':contentType});
 			res.end(data);
 		}
 	});
